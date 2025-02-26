@@ -1,0 +1,124 @@
+
+data_bin: /ivi/ilps/personal/stan1/lsn/ec30/fairseq-zs-data-bin
+save_dir: /ivi/ilps/personal/stan1/lsn/checkpoints/ec30/k_95
+
+restore-file: /ivi/ilps/personal/stan1/lsn/ec30/checkpoint_best_m2m_2tag.pt
+
+reset_dataloader: true
+reset_meters: true
+reset_optimizer: true
+reset_lr_scheduler: true
+
+langs: en,de,nl,sv,da,af,lb,fr,es,it,pt,ro,oc,ru,cs,pl,bg,uk,sr,hi,bn,kn,mr,sd,gu,ar,he,ha,mt,ti,am
+lang_pairs: en-de,en-nl,en-sv,en-da,en-af,en-lb,en-fr,en-es,en-it,en-pt,en-ro,en-oc,en-ru,en-cs,en-pl,en-bg,en-uk,en-sr,en-hi,en-bn,en-kn,en-mr,en-sd,en-gu,en-ar,en-he,en-ha,en-mt,en-ti,en-am,de-en,nl-en,sv-en,da-en,af-en,lb-en,fr-en,es-en,it-en,pt-en,ro-en,oc-en,ru-en,cs-en,pl-en,bg-en,uk-en,sr-en,hi-en,bn-en,kn-en,mr-en,sd-en,gu-en,ar-en,he-en,ha-en,mt-en,ti-en,am-en
+
+# model
+arch: transformer_vaswani_wmt_en_de_big_with_mask
+share_decoder_input_output_embed: true
+dropout: 0.1
+attention_dropout: 0.1
+encoder_normalize_before: true
+decoder_normalize_before: true
+share_decoder_input_output_embed: true
+max_source_positions: 256
+max_target_positions: 256
+
+task: mask_translation_multi_simple_epoch
+no-mask-output-project: true
+no-save-static-mask: true
+mask_path: "'{\"en-de\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-de.pt\",
+              \"en-nl\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-nl.pt\",
+              \"en-sv\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-sv.pt\",
+              \"en-da\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-da.pt\",
+              \"en-af\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-af.pt\",
+              \"en-lb\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-lb.pt\",
+              \"en-fr\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-fr.pt\",
+              \"en-es\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-es.pt\",
+              \"en-it\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-it.pt\",
+              \"en-pt\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-pt.pt\",
+              \"en-ro\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-ro.pt\",
+              \"en-oc\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-oc.pt\",
+              \"en-ru\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-ru.pt\",
+              \"en-cs\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-cs.pt\",
+              \"en-pl\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-pl.pt\",
+              \"en-bg\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-bg.pt\",
+              \"en-uk\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-uk.pt\",
+              \"en-sr\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-sr.pt\",
+              \"en-hi\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-hi.pt\",
+              \"en-bn\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-bn.pt\",
+              \"en-kn\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-kn.pt\",
+              \"en-mr\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-mr.pt\",
+              \"en-sd\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-sd.pt\",
+              \"en-gu\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-gu.pt\",
+              \"en-ar\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-ar.pt\",
+              \"en-he\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-he.pt\",
+              \"en-ha\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-ha.pt\",
+              \"en-mt\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-mt.pt\",
+              \"en-ti\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-ti.pt\",
+              \"en-am\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/en-am.pt\",
+              \"de-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/de-en.pt\",
+              \"nl-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/nl-en.pt\",
+              \"sv-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/sv-en.pt\",
+              \"da-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/da-en.pt\",
+              \"af-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/af-en.pt\",
+              \"lb-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/lb-en.pt\",
+              \"fr-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/fr-en.pt\",
+              \"es-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/es-en.pt\",
+              \"it-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/it-en.pt\",
+              \"pt-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/pt-en.pt\",
+              \"ro-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/ro-en.pt\",
+              \"oc-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/oc-en.pt\",
+              \"ru-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/ru-en.pt\",
+              \"cs-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/cs-en.pt\",
+              \"pl-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/pl-en.pt\",
+              \"bg-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/bg-en.pt\",
+              \"uk-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/uk-en.pt\",
+              \"sr-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/sr-en.pt\",
+              \"hi-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/hi-en.pt\",
+              \"bn-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/bn-en.pt\",
+              \"kn-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/kn-en.pt\",
+              \"mr-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/mr-en.pt\",
+              \"sd-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/sd-en.pt\",
+              \"gu-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/gu-en.pt\",
+              \"ar-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/ar-en.pt\",
+              \"he-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/he-en.pt\",
+              \"ha-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/ha-en.pt\",
+              \"mt-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/mt-en.pt\",
+              \"ti-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/ti-en.pt\",
+              \"am-en\": \"/ivi/ilps/personal/stan1/lsn/scripts/k_95/masks/am-en.pt\"}'"
+sampling_method: temperature
+sampling_temperature: 5
+encoder_langtok: src
+decoder_langtok: true
+
+criterion: label_smoothed_cross_entropy
+label_smoothing: 0.1
+optimizer: adam
+adam_betas: "'(0.9, 0.98)'"
+adam_eps: 1e-06
+clip_norm: 0.0
+lr: 5e-4
+lr_scheduler: inverse_sqrt
+warmup_updates: 4000
+weight_decay: 0.0
+
+# 4 gpu
+max_tokens: 7680
+update_freq: 21
+distributed_world_size: 4
+ddp_backend: no_c10d
+ddp_comm_hook: fp16
+max_update: 900000
+fp16: true
+
+patience: 20
+save_interval: 500
+save_interval_updates: 500
+validate_interval: 500
+validate_interval_updates: 500
+keep_interval_updates: 3
+seed: 222
+log_format: simple
+log_interval: 20
+
+skip_invalid_size_inputs_valid_test: true

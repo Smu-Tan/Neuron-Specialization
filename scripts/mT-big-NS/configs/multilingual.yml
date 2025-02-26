@@ -1,0 +1,128 @@
+
+# enter your dataset dir here
+data_bin: ec30/fairseq-data-bin-sharded/shard0:ec30/fairseq-data-bin-sharded/shard1:ec30/fairseq-data-bin-sharded/shard2:ec30/fairseq-data-bin-sharded/shard3:ec30/fairseq-data-bin-sharded/shard4
+save_dir: scripts/mT-big/checkpoints
+
+# baseline checkpoint
+restore-file: scripts/mT-big-baseline/checkpoints/checkpoint_baseline_mtbig.pt
+
+reset_dataloader: true
+reset_meters: true
+reset_optimizer: true
+reset_lr_scheduler: true
+
+# 30 languages; 60 language pairs
+langs: en,de,nl,sv,da,af,lb,fr,es,it,pt,ro,oc,ru,cs,pl,bg,uk,sr,hi,bn,kn,mr,sd,gu,ar,he,ha,mt,ti,am
+lang_pairs: en-de,en-nl,en-sv,en-da,en-af,en-lb,en-fr,en-es,en-it,en-pt,en-ro,en-oc,en-ru,en-cs,en-pl,en-bg,en-uk,en-sr,en-hi,en-bn,en-kn,en-mr,en-sd,en-gu,en-ar,en-he,en-ha,en-mt,en-ti,en-am,de-en,nl-en,sv-en,da-en,af-en,lb-en,fr-en,es-en,it-en,pt-en,ro-en,oc-en,ru-en,cs-en,pl-en,bg-en,uk-en,sr-en,hi-en,bn-en,kn-en,mr-en,sd-en,gu-en,ar-en,he-en,ha-en,mt-en,ti-en,am-en
+
+
+# model
+arch: transformer_vaswani_wmt_en_de_big_with_mask
+share_decoder_input_output_embed: true
+dropout: 0.1
+attention_dropout: 0.1
+encoder_normalize_before: true
+decoder_normalize_before: true
+share_decoder_input_output_embed: true
+max_source_positions: 256
+max_target_positions: 256
+
+task: mask_translation_multi_simple_epoch
+no-mask-output-project: true
+no-save-static-mask: true
+mask_path: "'{\"en-de\": \"scripts/mT-big-NS/masks/en-de.pt\",
+              \"en-nl\": \"scripts/mT-big-NS/masks/en-nl.pt\",
+              \"en-sv\": \"scripts/mT-big-NS/masks/en-sv.pt\",
+              \"en-da\": \"scripts/mT-big-NS/masks/en-da.pt\",
+              \"en-af\": \"scripts/mT-big-NS/masks/en-af.pt\",
+              \"en-lb\": \"scripts/mT-big-NS/masks/en-lb.pt\",
+              \"en-fr\": \"scripts/mT-big-NS/masks/en-fr.pt\",
+              \"en-es\": \"scripts/mT-big-NS/masks/en-es.pt\",
+              \"en-it\": \"scripts/mT-big-NS/masks/en-it.pt\",
+              \"en-pt\": \"scripts/mT-big-NS/masks/en-pt.pt\",
+              \"en-ro\": \"scripts/mT-big-NS/masks/en-ro.pt\",
+              \"en-oc\": \"scripts/mT-big-NS/masks/en-oc.pt\",
+              \"en-ru\": \"scripts/mT-big-NS/masks/en-ru.pt\",
+              \"en-cs\": \"scripts/mT-big-NS/masks/en-cs.pt\",
+              \"en-pl\": \"scripts/mT-big-NS/masks/en-pl.pt\",
+              \"en-bg\": \"scripts/mT-big-NS/masks/en-bg.pt\",
+              \"en-uk\": \"scripts/mT-big-NS/masks/en-uk.pt\",
+              \"en-sr\": \"scripts/mT-big-NS/masks/en-sr.pt\",
+              \"en-hi\": \"scripts/mT-big-NS/masks/en-hi.pt\",
+              \"en-bn\": \"scripts/mT-big-NS/masks/en-bn.pt\",
+              \"en-kn\": \"scripts/mT-big-NS/masks/en-kn.pt\",
+              \"en-mr\": \"scripts/mT-big-NS/masks/en-mr.pt\",
+              \"en-sd\": \"scripts/mT-big-NS/masks/en-sd.pt\",
+              \"en-gu\": \"scripts/mT-big-NS/masks/en-gu.pt\",
+              \"en-ar\": \"scripts/mT-big-NS/masks/en-ar.pt\",
+              \"en-he\": \"scripts/mT-big-NS/masks/en-he.pt\",
+              \"en-ha\": \"scripts/mT-big-NS/masks/en-ha.pt\",
+              \"en-mt\": \"scripts/mT-big-NS/masks/en-mt.pt\",
+              \"en-ti\": \"scripts/mT-big-NS/masks/en-ti.pt\",
+              \"en-am\": \"scripts/mT-big-NS/masks/en-am.pt\",
+              \"de-en\": \"scripts/mT-big-NS/masks/de-en.pt\",
+              \"nl-en\": \"scripts/mT-big-NS/masks/nl-en.pt\",
+              \"sv-en\": \"scripts/mT-big-NS/masks/sv-en.pt\",
+              \"da-en\": \"scripts/mT-big-NS/masks/da-en.pt\",
+              \"af-en\": \"scripts/mT-big-NS/masks/af-en.pt\",
+              \"lb-en\": \"scripts/mT-big-NS/masks/lb-en.pt\",
+              \"fr-en\": \"scripts/mT-big-NS/masks/fr-en.pt\",
+              \"es-en\": \"scripts/mT-big-NS/masks/es-en.pt\",
+              \"it-en\": \"scripts/mT-big-NS/masks/it-en.pt\",
+              \"pt-en\": \"scripts/mT-big-NS/masks/pt-en.pt\",
+              \"ro-en\": \"scripts/mT-big-NS/masks/ro-en.pt\",
+              \"oc-en\": \"scripts/mT-big-NS/masks/oc-en.pt\",
+              \"ru-en\": \"scripts/mT-big-NS/masks/ru-en.pt\",
+              \"cs-en\": \"scripts/mT-big-NS/masks/cs-en.pt\",
+              \"pl-en\": \"scripts/mT-big-NS/masks/pl-en.pt\",
+              \"bg-en\": \"scripts/mT-big-NS/masks/bg-en.pt\",
+              \"uk-en\": \"scripts/mT-big-NS/masks/uk-en.pt\",
+              \"sr-en\": \"scripts/mT-big-NS/masks/sr-en.pt\",
+              \"hi-en\": \"scripts/mT-big-NS/masks/hi-en.pt\",
+              \"bn-en\": \"scripts/mT-big-NS/masks/bn-en.pt\",
+              \"kn-en\": \"scripts/mT-big-NS/masks/kn-en.pt\",
+              \"mr-en\": \"scripts/mT-big-NS/masks/mr-en.pt\",
+              \"sd-en\": \"scripts/mT-big-NS/masks/sd-en.pt\",
+              \"gu-en\": \"scripts/mT-big-NS/masks/gu-en.pt\",
+              \"ar-en\": \"scripts/mT-big-NS/masks/ar-en.pt\",
+              \"he-en\": \"scripts/mT-big-NS/masks/he-en.pt\",
+              \"ha-en\": \"scripts/mT-big-NS/masks/ha-en.pt\",
+              \"mt-en\": \"scripts/mT-big-NS/masks/mt-en.pt\",
+              \"ti-en\": \"scripts/mT-big-NS/masks/ti-en.pt\",
+              \"am-en\": \"scripts/mT-big-NS/masks/am-en.pt\"}'"
+sampling_method: temperature
+sampling_temperature: 5
+encoder_langtok: src
+decoder_langtok: true
+
+criterion: label_smoothed_cross_entropy
+label_smoothing: 0.1
+optimizer: adam
+adam_betas: "'(0.9, 0.98)'"
+adam_eps: 1e-06
+clip_norm: 0.0
+lr: 5e-4
+lr_scheduler: inverse_sqrt
+warmup_updates: 4000
+weight_decay: 0.0
+
+# 4 gpu
+max_tokens: 7680
+update_freq: 21
+distributed_world_size: 4
+ddp_backend: no_c10d
+ddp_comm_hook: fp16
+max_update: 900000
+fp16: true
+
+patience: 20
+save_interval: 500
+save_interval_updates: 500
+validate_interval: 500
+validate_interval_updates: 500
+keep_interval_updates: 3
+seed: 222
+log_format: simple
+log_interval: 20
+
+skip_invalid_size_inputs_valid_test: true
