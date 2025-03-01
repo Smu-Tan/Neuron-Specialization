@@ -3,9 +3,21 @@
 The repository of the EMNLP 2024 paper "Neuron Specialization: Leveraging Intrinsic Task Modularity for Multilingual Machine Translation", see [paper](https://aclanthology.org/2024.emnlp-main.374/).
 
 
+
 ## Neuron Specialization Training and Evaluation Example
 
 ### 1. Preparations:
+
+#### Environments
+
+```
+torch==1.12.0
+fairseq==0.12.2
+numpy==1.24.3
+pandas==1.5.2
+sacrebleu==2.3.1
+sacremoses==0.0.53
+```
 
   * [Download EC30 Fairseq train-val-test set data-bin](https://drive.google.com/file/d/1qHRFNU-helRLpHkr6rspqEZs0eDj-68l/view?usp=drive_link). We provide our pre-processed training-validation-test sets in Fairseq bin format, which is the easiest way to reproduce.
 
