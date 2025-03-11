@@ -1,7 +1,7 @@
 # Neuron Specialization
 
 [![Paper](https://img.shields.io/badge/Paper-EMNLP%202024-brightgreen)](https://aclanthology.org/2024.emnlp-main.374/)
-[![Conference](https://img.shields.io/badge/Conference-EMNLP%202024-blue)](https://2024.emnlpconference.org/)
+[![Conference](https://img.shields.io/badge/Conference-EMNLP%202024-blue)](https://2024.emnlp.org/)
 
 This repository contains the official implementation of our EMNLP 2024 paper:
 
@@ -19,7 +19,7 @@ Our work investigates the trade-off between knowledge transfer and interference 
 
 - [Requirements](#-requirements)
 - [Dataset and Model Checkpoints](#-dataset-and-model-checkpoints)
-- [Evaluation](#-evaluation)
+- [Evaluation](#-direct-evaluation)
 - [Training](#-training)
 - [Visualization](#-visualization)
 - [Citation](#-citation)
