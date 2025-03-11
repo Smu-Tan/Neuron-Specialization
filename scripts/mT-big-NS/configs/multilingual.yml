@@ -1,7 +1,7 @@
 
 # enter your dataset dir here
 data_bin: ec30/fairseq-data-bin-sharded/shard0:ec30/fairseq-data-bin-sharded/shard1:ec30/fairseq-data-bin-sharded/shard2:ec30/fairseq-data-bin-sharded/shard3:ec30/fairseq-data-bin-sharded/shard4
-save_dir: scripts/mT-big/checkpoints
+save_dir: scripts/mT-big-NS/checkpoints
 
 # baseline checkpoint
 restore-file: scripts/mT-big-baseline/checkpoints/checkpoint_baseline_mtbig.pt

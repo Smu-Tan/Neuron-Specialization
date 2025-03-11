@@ -59,13 +59,39 @@ def load_neurons(l,dir):
         neurons[pair] = load_act(pair,dir)
     return neurons
 
+def generate_weight_format(n_layers):
+    template = []
+    
+    # Components to iterate through
+    components = {
+        'encoder': [('self_attn', ['k_proj', 'v_proj', 'q_proj', 'out_proj']), 
+                    (None, ['fc1', 'fc2'])],
+        'decoder': [('self_attn', ['k_proj', 'v_proj', 'q_proj', 'out_proj']),
+                    ('encoder_attn', ['k_proj', 'v_proj', 'q_proj', 'out_proj']),
+                    (None, ['fc1', 'fc2'])]
+    }
+    
+    # Generate encoder and decoder paths
+    for model_part in ['encoder', 'decoder']:
+        for layer in range(n_layers):  # 6 layers for both encoder and decoder
+            for attn_type, projs in components[model_part]:
+                for proj in projs:
+                    # Handle attention and feed-forward paths differently
+                    if attn_type:
+                        template.append(f'{model_part}.layers.{layer}.{attn_type}.{proj}.weight')
+                    else:
+                        template.append(f'{model_part}.layers.{layer}.{proj}.weight')
+    
+    # Add output projection
+    template.append('decoder.output_projection.weight')
+    
+    return template
 
 def main(args):
 
     neuron_dir = args.neuron_dir
     save_mask_dir = args.save_mask_dir
     save_fig_dir = args.save_fig_dir
-    mask_format_path = args.mask_format_path
     fc1_neuron_dim = args.fc1_neuron_dim
     fc1_weight_dim = args.fc1_weight_dim
     x2en_enc_k = args.x2en_enc_k
@@ -81,6 +107,7 @@ def main(args):
     neurons_new = defaultdict(nested_defaultdict)
 
     for lp in neurons:
+        n_layers=0
         for layer in neurons[lp]:
             src,tgt = lp.split('-')
             # en2x
@@ -97,23 +124,21 @@ def main(args):
                     x = cumulative_neuron_activation_indices_torch(neurons[lp][layer], x2en_dec_k)
             top_k_neurons[lp][layer] = x
             neurons_new[lp][layer] = torch.isin(default, x).int()
+            n_layers+=1
 
     neuron_2_weight = defaultdict(nested_defaultdict)
     for lp in neurons_new:
         for layer in neurons_new[lp]:
             neuron_2_weight[lp][layer] =  neurons_new[lp][layer].unsqueeze(1).expand([fc1_neuron_dim,fc1_weight_dim]).bool()
 
+    print(f'{n_layers}-layer model, creating the corresponding mask format (if your arch is not tradition transformer, check this part)')
+    template = generate_weight_format(n_layers=6)
 
     weight = defaultdict(nested_defaultdict)
     for lp in neuron_2_weight:
-        lass = torch.load(mask_format_path)
-        for key in list(lass.keys()):
+        for key in template:
             if 'fc1' in key:
                 weight[lp][key] = neuron_2_weight[lp]['_'.join(key.split('.')[:3]).replace('layers', 'layer')]
-            #if 'fc1' not in key:
-            #    weight[lp][key] = torch.ones_like(lass[key])
-            #else:
-            #    weight[lp][key] = neuron_2_weight[lp]['_'.join(key.split('.')[:3]).replace('layers', 'layer')]
 
     for lp in weight:
         torch_persistent_save(dict(weight[lp]), "{}/{}.pt".format(save_mask_dir, lp))
@@ -157,7 +182,6 @@ if __name__ == "__main__":
     
 
     parser.add_argument('--neuron-dir', type=str, help='neuron_dir')
-    parser.add_argument('--mask-format-path', type=str, help='mask_format_path')
     parser.add_argument('--save-mask-dir', type=str, help='save_mask_dir')
     parser.add_argument('--save-fig-dir', type=str, help='save_fig_dir')
     

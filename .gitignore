@@ -1,0 +1,5 @@
+scripts/mT-big-NS/checkpoints/mT_big_NS_checkpoint.pt
+scripts/mT-big-NS/scripts/eval copy.sh
+scripts/mT-big-NS/scripts/train copy.sh
+scripts/mT-big-NS/configs/multilingual copy.yml
+notebook/visualize copy.ipynb

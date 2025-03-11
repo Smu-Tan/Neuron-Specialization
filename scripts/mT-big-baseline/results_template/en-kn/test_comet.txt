@@ -1,0 +1,1 @@
+scripts/mT-big-baseline/results/en-kn/test-sys.txt	score: 0.8749

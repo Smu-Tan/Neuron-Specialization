@@ -1,21 +1,20 @@
 #!/bin/bash
 #SBATCH --partition=gpu
-#SBATCH --gres=gpu:1
+#SBATCH --gres=gpu:nvidia_rtx_a6000:1
 #SBATCH --cpus-per-task=4
 #SBATCH --job-name=2hours
 #SBATCH --time=20-00:00:00
 #SBATCH --mem=32G
-#SBATCH --nodelist=ilps-cn117
 
 
 # activate your env here
 conda activate neuron_specialization
 
 
-# this is the one you downloaded
-CHECKPOINT=scripts/mT-big/checkpoints/mT_big_NS_checkpoint.pt
-CONFIG=scripts/mT-big/configs/multilingual.yml
-SAVE_DIR_HOME=scripts/mT-big/results
+# this is the one you downloaded, YOU MUST COPY IT UNDER scripts/mT-big-NS/checkpoints/mT_big_NS_checkpoint.pt
+CHECKPOINT=scripts/mT-big-NS/checkpoints/mT_big_NS_checkpoint.pt
+CONFIG=scripts/mT-big-NS/configs/multilingual.yml
+SAVE_DIR_HOME=scripts/mT-big-NS/checkpoints
 
 # evaluation on Flores en-centric pairs
 PAIRS=('en-de' 'en-nl' 'en-fr' 'en-es' 'en-ru' 'en-cs' 'en-hi' 'en-bn' 'en-ar' 'en-he' 'en-sv' 'en-da' 'en-it' 'en-pt' 'en-pl' 'en-bg' 'en-kn' 'en-mr' 'en-mt' 'en-ha' 'en-af' 'en-lb' 'en-ro' 'en-oc' 'en-uk' 'en-sr' 'en-sd' 'en-gu' 'en-ti' 'en-am' 'de-en' 'nl-en' 'fr-en' 'es-en' 'ru-en' 'cs-en' 'hi-en' 'bn-en' 'ar-en' 'he-en' 'sv-en' 'da-en' 'it-en' 'pt-en' 'pl-en' 'bg-en' 'kn-en' 'mr-en' 'mt-en' 'ha-en' 'af-en' 'lb-en' 'ro-en' 'oc-en' 'uk-en' 'sr-en' 'sd-en' 'gu-en' 'ti-en' 'am-en')
@@ -55,5 +54,5 @@ for i in "${!PAIRS[@]}"; do
     REFERENCE=${SAVE_DIR}/test-ref.txt
     comet-score -s ${SOURCE_SENT} -t ${HYPOTHESIS} -r ${REFERENCE} --quiet --only_system > ${OUT_DIR}/test_comet.txt
     
-
 done
+rm -R scripts/mT-big-NS/checkpoints/results

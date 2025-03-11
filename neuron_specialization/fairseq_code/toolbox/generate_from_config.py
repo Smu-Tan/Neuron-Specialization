@@ -71,7 +71,7 @@ def main():
                 file_operation.join_paths(
                     config["save_dir"],
                     "results",
-                    checkpoint_name,
+                    #checkpoint_name,
                     lang_pair,
                     "generate.log"
                 ),

@@ -1,0 +1,1 @@
+scripts/mT-big-baseline/results/lb-en/test-sys.txt	score: 0.6144
