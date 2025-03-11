@@ -1,0 +1,1 @@
+/ivi/ilps/personal/stan1/ns/Neuron-Specialization/scripts/mT-big-NS/checkpoints/uk-en/test-sys.txt	score: 0.8081
